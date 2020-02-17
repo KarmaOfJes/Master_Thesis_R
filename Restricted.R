@@ -40,13 +40,8 @@ deflator <-
 # Compose data into total and per row format ------------------------------
 
 #Compose table with full information
-base <- 
-    read.csv("correct_id_2.txt", sep="", stringsAsFactors=FALSE) %>% 
-    distinct() %>% 
-    as_tibble() %>% 
-    mutate_if(is.character, ~stri_trans_general(., "ukrainian-latin/bgn")) %>%
-    select(matches('^[^X].*'), everything())
 
+base = readRDS('RDS_form50.rds')
 # Correcting column names(deleting "X" from the start)
 for(i in select(base, matches('X.')) %>% names){
     colnames(base)[colnames(base) == i] = str_sub(i, 2)
